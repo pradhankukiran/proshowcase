@@ -1,4 +1,4 @@
-import { User, Project, Photo, Industry } from '../types';
+import { Profile, Project, Photo, Industry } from '../types';
 
 export const INDUSTRIES: Industry[] = [
   { id: '1', name: 'Construction', icon: 'construction' },
@@ -11,13 +11,12 @@ export const INDUSTRIES: Industry[] = [
   { id: '8', name: 'Flooring', icon: 'grid' },
 ];
 
-export const MOCK_USERS: User[] = [
+export const MOCK_USERS: Profile[] = [
   {
     id: '1',
     slug: 'kirankumar',
     username: 'kirankumar',
-    email: 'john@example.com',
-    name: 'Kiran Kumar Pradhan',
+    full_name: 'Kiran Kumar Pradhan',
     profileImage: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600',
     companyName: 'Freelancer',
     bio: 'Professional freelancer with over 15 years of experience in residential construction.',
@@ -34,18 +33,6 @@ export const MOCK_USERS: User[] = [
     industry: 'Construction',
     specialties: ['Kitchen Remodels', 'Bathroom Renovations', 'Home Additions'],
     isPublic: true,
-    rating: 4.8,
-    reviews: [
-      {
-        id: '1',
-        userId: '1',
-        reviewerId: '2',
-        reviewerName: 'Sarah Smith',
-        rating: 5,
-        comment: 'Excellent work on our kitchen remodel. Very professional and detail-oriented.',
-        createdAt: new Date('2023-06-15'),
-      }
-    ],
     createdAt: new Date('2023-01-15'),
     updatedAt: new Date('2023-06-20'),
   },
@@ -53,8 +40,7 @@ export const MOCK_USERS: User[] = [
     id: '2',
     slug: 'sarahsmith',
     username: 'sarahsmith',
-    email: 'sarah@example.com',
-    name: 'Sarah Smith',
+    full_name: 'Sarah Smith',
     profileImage: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600',
     companyName: 'Green Thumb Landscaping',
     bio: 'Award-winning landscape designer specializing in sustainable and drought-resistant gardens.',
@@ -69,18 +55,6 @@ export const MOCK_USERS: User[] = [
     industry: 'Landscaping',
     specialties: ['Garden Design', 'Outdoor Living Spaces', 'Water Features'],
     isPublic: true,
-    rating: 4.9,
-    reviews: [
-      {
-        id: '2',
-        userId: '2',
-        reviewerId: '1',
-        reviewerName: 'John Doe',
-        rating: 5,
-        comment: 'Sarah transformed our backyard into a beautiful oasis. Highly recommended!',
-        createdAt: new Date('2023-07-01'),
-      }
-    ],
     createdAt: new Date('2023-02-10'),
     updatedAt: new Date('2023-07-05'),
   },
@@ -88,8 +62,7 @@ export const MOCK_USERS: User[] = [
     id: '3',
     slug: 'mikerodriguez',
     username: 'mikerodriguez',
-    email: 'mike@example.com',
-    name: 'Mike Rodriguez',
+    full_name: 'Mike Rodriguez',
     profileImage: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600',
     companyName: 'Spotless Cleaning Services',
     bio: 'Experienced cleaning professional offering top-notch residential and commercial cleaning services.',
@@ -103,11 +76,74 @@ export const MOCK_USERS: User[] = [
     industry: 'Cleaning',
     specialties: ['Residential Cleaning', 'Commercial Cleaning', 'Move-in/Move-out Cleaning'],
     isPublic: true,
-    rating: 4.7,
-    reviews: [],
     createdAt: new Date('2023-03-05'),
     updatedAt: new Date('2023-08-12'),
   },
+  {
+    id: '4',
+    slug: 'emilycarter',
+    username: 'emilycarter',
+    full_name: 'Emily Carter',
+    profileImage: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600',
+    companyName: 'Carter Plumbing Solutions',
+    bio: 'Licensed plumber with 10 years of experience in both residential and commercial plumbing. Available 24/7 for emergencies.',
+    serviceAreas: ['Seattle', 'Bellevue', 'Redmond'],
+    contactInfo: {
+      phone: '555-111-2222',
+      email: 'emily@example.com',
+      website: 'www.carterplumbing.com',
+      city: 'Seattle',
+      state: 'WA',
+    },
+    industry: 'Plumbing',
+    specialties: ['Emergency Repairs', 'Pipe Installation', 'Water Heater Services'],
+    isPublic: true,
+    createdAt: new Date('2023-04-01'),
+    updatedAt: new Date('2023-09-05'),
+  },
+  {
+    id: '5',
+    slug: 'davidlee',
+    username: 'davidlee',
+    full_name: 'David Lee',
+    profileImage: 'https://images.pexels.com/photos/3760857/pexels-photo-3760857.jpeg?auto=compress&cs=tinysrgb&w=600',
+    companyName: 'Bright Spark Electrical',
+    bio: 'Master electrician specializing in smart home installations and energy-efficient lighting solutions.',
+    serviceAreas: ['Denver', 'Aurora', 'Lakewood'],
+    contactInfo: {
+      phone: '555-333-4444',
+      email: 'david@example.com',
+      city: 'Denver',
+      state: 'CO',
+    },
+    industry: 'Electrical',
+    specialties: ['Smart Home Setup', 'LED Lighting', 'Panel Upgrades'],
+    isPublic: false,
+    createdAt: new Date('2023-05-20'),
+    updatedAt: new Date('2023-08-25'),
+  },
+  {
+    id: '6',
+    slug: 'chloewilliams',
+    username: 'chloewilliams',
+    full_name: 'Chloe Williams',
+    profileImage: 'https://images.pexels.com/photos/3769747/pexels-photo-3769747.jpeg?auto=compress&cs=tinysrgb&w=600',
+    companyName: 'Chic Designs Co.',
+    bio: 'Innovative interior designer focusing on creating functional and beautiful living spaces.',
+    serviceAreas: ['Miami', 'Fort Lauderdale', 'Boca Raton'],
+    contactInfo: {
+      phone: '555-555-6666',
+      email: 'chloe@example.com',
+      website: 'www.chicdesigns.co',
+      city: 'Miami',
+      state: 'FL',
+    },
+    industry: 'Interior Design',
+    specialties: ['Residential Design', 'Space Planning', 'Furniture Selection'],
+    isPublic: true,
+    createdAt: new Date('2023-06-01'),
+    updatedAt: new Date('2023-08-15'),
+  }
 ];
 
 export const MOCK_PROJECTS: Project[] = [
