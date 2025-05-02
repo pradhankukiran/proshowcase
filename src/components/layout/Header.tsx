@@ -64,9 +64,9 @@ export const Header: React.FC = () => {
                     variant="ghost"
                     className="flex items-center"
                   >
-                    <span className="mr-2">{user?.name}</span>
+                    <span className="mr-2">{user?.profile?.full_name}</span>
                     <img 
-                      src={user?.profileImage || "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600"} 
+                      src={user?.profile?.profileImage || "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600"} 
                       alt="Profile" 
                       className="h-8 w-8 rounded-full object-cover"
                     />
@@ -151,13 +151,13 @@ export const Header: React.FC = () => {
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
                     <img 
-                      src={user?.profileImage || "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600"} 
+                      src={user?.profile?.profileImage || "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600"} 
                       alt="Profile" 
                       className="h-10 w-10 rounded-full"
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-gray-800">{user?.name}</div>
+                    <div className="text-base font-medium text-gray-800">{user?.profile?.full_name}</div>
                     <div className="text-sm font-medium text-gray-500">{user?.email}</div>
                   </div>
                 </div>
