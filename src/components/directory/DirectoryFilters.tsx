@@ -10,7 +10,8 @@ interface DirectoryFiltersProps {
 
 export const DirectoryFilters: React.FC<DirectoryFiltersProps> = ({ onFilterChange }) => {
   const [filters, setFilters] = useState<DirectoryFiltersType>({
-    sortBy: 'recent'
+    sortBy: 'recent',
+    searchTerm: '',
   });
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   
@@ -19,9 +20,19 @@ export const DirectoryFilters: React.FC<DirectoryFiltersProps> = ({ onFilterChan
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleFilterChange('searchTerm', e.target.value);
+  };
   
   const clearFilters = () => {
-    const newFilters = { sortBy: 'recent' };
+    const newFilters = {
+      sortBy: 'recent',
+      searchTerm: '',
+      industry: undefined,
+      location: undefined,
+      specialty: undefined,
+    };
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
@@ -33,6 +44,15 @@ export const DirectoryFilters: React.FC<DirectoryFiltersProps> = ({ onFilterChan
     'New York, NY',
     'Seattle, WA',
     'Chicago, IL',
+  ];
+
+  const specialties = [
+    'Kitchen Remodels', 'Bathroom Renovations', 'Home Additions',
+    'Garden Design', 'Outdoor Living Spaces', 'Water Features',
+    'Residential Cleaning', 'Commercial Cleaning', 'Move-in/Move-out Cleaning',
+    'Emergency Repairs', 'Pipe Installation', 'Water Heater Services',
+    'Smart Home Setup', 'LED Lighting', 'Panel Upgrades',
+    'Residential Design', 'Space Planning', 'Furniture Selection'
   ];
   
   return (
@@ -56,6 +76,8 @@ export const DirectoryFilters: React.FC<DirectoryFiltersProps> = ({ onFilterChan
           type="text"
           placeholder="Search professionals..."
           className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          value={filters.searchTerm || ''}
+          onChange={handleInputChange}
         />
         <Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
       </div>
@@ -94,6 +116,21 @@ export const DirectoryFilters: React.FC<DirectoryFiltersProps> = ({ onFilterChan
             ))}
           </select>
         </div>
+
+        {/* Specialty Filter */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Specialty</h3>
+          <select
+            value={filters.specialty || ''}
+            onChange={(e) => handleFilterChange('specialty', e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">All Specialties</option>
+            {specialties.map((specialty, index) => (
+              <option key={index} value={specialty}>{specialty}</option>
+            ))}
+          </select>
+        </div>
         
         {/* Sort By */}
         <div>
@@ -127,7 +164,7 @@ export const DirectoryFilters: React.FC<DirectoryFiltersProps> = ({ onFilterChan
         </div>
         
         {/* Clear Filters button - only show if filters are applied */}
-        {(filters.industry || filters.location || filters.specialty || filters.sortBy !== 'recent') && (
+        {(filters.industry || filters.location || filters.specialty || filters.sortBy !== 'recent' || filters.searchTerm) && (
           <div className="pt-2">
             <Button 
               variant="ghost" 

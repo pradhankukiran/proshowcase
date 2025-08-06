@@ -7,13 +7,24 @@ import { MOCK_USERS } from '../data/mockData';
 
 export const DirectoryPage: React.FC = () => {
   const [filters, setFilters] = useState<DirectoryFiltersType>({
-    sortBy: 'recent'
+    sortBy: 'recent',
+    searchTerm: '',
   });
   const [filteredUsers, setFilteredUsers] = useState<User[]>(MOCK_USERS);
   
   useEffect(() => {
     // Filter users based on selected filters
     let result = [...MOCK_USERS];
+
+    if (filters.searchTerm) {
+      const searchTerm = filters.searchTerm.toLowerCase();
+      result = result.filter(user =>
+        user.name.toLowerCase().includes(searchTerm) ||
+        user.bio?.toLowerCase().includes(searchTerm) ||
+        user.industry?.toLowerCase().includes(searchTerm) ||
+        user.specialties?.some(s => s.toLowerCase().includes(searchTerm))
+      );
+    }
     
     if (filters.industry) {
       result = result.filter(user => user.industry === filters.industry);
