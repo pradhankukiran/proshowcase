@@ -14,13 +14,13 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user, variant = 'compa
   
   // Apply flex only for compact variant
   const containerClasses = isCompact 
-    ? 'bg-white rounded-lg shadow-md overflow-hidden flex flex-row' 
-    : 'bg-white rounded-lg shadow-md overflow-hidden lg:flex';
+    ? 'bg-white rounded-lg shadow-sm overflow-hidden flex flex-row transition-all duration-300 hover:shadow-lg'
+    : 'bg-white rounded-lg shadow-sm overflow-hidden lg:flex transition-all duration-300 hover:shadow-lg';
 
   // Define order and width for compact variant
   const imageContainerClasses = isCompact
-    ? 'relative w-1/4 order-2 h-48' // Image on right, takes 1/4 width, FIXED HEIGHT
-    : 'relative lg:w-1/3';
+    ? 'relative w-1/4 order-2 h-48 overflow-hidden' // Image on right, takes 1/4 width, FIXED HEIGHT
+    : 'relative lg:w-1/3 overflow-hidden';
 
   const contentContainerClasses = isCompact
     ? 'p-6 flex-grow order-1' // Content on left, takes remaining space
@@ -28,11 +28,11 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user, variant = 'compa
   
   // Adjust image height for compact portrait look
   const imageClasses = isCompact
-    ? 'w-full h-full object-cover' // Full height of container, portrait style
-    : `w-full ${isCompact ? 'h-48' : 'lg:h-full'} object-cover`; // Original logic for non-compact
+    ? 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105' // Full height of container, portrait style
+    : `w-full ${isCompact ? 'h-48' : 'lg:h-full'} object-cover transition-transform duration-300 group-hover:scale-105`; // Original logic for non-compact
 
   return (
-    <div className={containerClasses}>
+    <div className={`${containerClasses} group`}>
       {/* Image container - now uses dynamic classes */}
       <div className={imageContainerClasses}>
         <img 
@@ -79,7 +79,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user, variant = 'compa
                 {user.specialties?.map((specialty: string, index: number) => (
                   <span 
                     key={index} 
-                    className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded"
+                    className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full"
                   >
                     {specialty}
                   </span>
@@ -96,27 +96,27 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user, variant = 'compa
         )}
         
         {/* Contact Info Section */}
-        <div className={`mt-6 ${isCompact ? 'flex flex-row flex-wrap gap-x-4 gap-y-1' : 'grid grid-cols-1 md:grid-cols-2 gap-4'}`}>
+        <div className={`mt-6 border-t pt-4 ${isCompact ? 'flex flex-row flex-wrap gap-x-6 gap-y-2' : 'grid grid-cols-1 md:grid-cols-2 gap-4'}`}>
           {user.contactInfo.phone && (
             <div className="flex items-center">
-              <Phone size={16} className="text-gray-500 mr-2 flex-shrink-0" />
-              <a href={`tel:${user.contactInfo.phone}`} className="text-blue-600 hover:underline text-sm truncate">
+              <Phone size={15} className="text-blue-600 mr-3 flex-shrink-0" />
+              <a href={`tel:${user.contactInfo.phone}`} className="text-gray-700 hover:text-blue-600 text-sm truncate">
                 {user.contactInfo.phone}
               </a>
             </div>
           )}
           
           <div className="flex items-center">
-            <Mail size={16} className="text-gray-500 mr-2 flex-shrink-0" />
-            <a href={`mailto:${user.contactInfo.email}`} className="text-blue-600 hover:underline text-sm truncate">
+            <Mail size={15} className="text-blue-600 mr-3 flex-shrink-0" />
+            <a href={`mailto:${user.contactInfo.email}`} className="text-gray-700 hover:text-blue-600 text-sm truncate">
               {user.contactInfo.email}
             </a>
           </div>
           
           {user.contactInfo.website && (
             <div className="flex items-center">
-              <Globe size={16} className="text-gray-500 mr-2 flex-shrink-0" />
-              <a href={user.contactInfo.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-sm truncate">
+              <Globe size={15} className="text-blue-600 mr-3 flex-shrink-0" />
+              <a href={user.contactInfo.website} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600 text-sm truncate">
                 {user.contactInfo.website.replace(/^https?:\/\/(www\.)?/, '')}
               </a>
             </div>
